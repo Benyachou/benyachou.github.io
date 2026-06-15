@@ -32,7 +32,7 @@ const personJsonLd = {
 ---
 
 <!doctype html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,25 +60,15 @@ const personJsonLd = {
       href={withBase('sitemap-index.xml')}
     />
 
-    <!-- Initialise le thème avant le rendu pour éviter tout flash (FOUC). -->
-    <script is:inline>
-      (() => {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia(
-          '(prefers-color-scheme: dark)',
-        ).matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        }
-      })();
-    </script>
-
     <script
       type="application/ld+json"
       set:html={JSON.stringify(personJsonLd)}
     />
   </head>
   <body>
+    <!-- Fond cosmique fixe, derrière tout le contenu. -->
+    <div class="cosmic" aria-hidden="true"></div>
+
     <slot />
 
     <!-- Apparition douce des sections au scroll (désactivée si prefers-reduced-motion). -->

@@ -29,8 +29,55 @@ html {
 }
 
 body {
-  @apply bg-white text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200;
+  @apply text-slate-200 antialiased;
+  background-color: #070d1c;
   font-family: var(--font-sans);
+}
+
+/* --- Fond cosmique « dark blue » couvrant tout le site --- */
+/* Couche fixe placée derrière le contenu : halos bleus type nébuleuse +
+   champ d'étoiles. Entièrement en CSS, donc net à n'importe quelle taille. */
+.cosmic {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60% 50% at 78% 16%,
+      rgba(56, 150, 220, 0.3),
+      transparent 60%
+    ),
+    radial-gradient(
+      52% 46% at 20% 64%,
+      rgba(46, 134, 193, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      80% 60% at 50% 112%,
+      rgba(13, 40, 66, 0.55),
+      transparent 70%
+    );
+}
+
+/* Étoiles : motif répété de petits points lumineux. */
+.cosmic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 25px 35px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 80px 120px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(
+      1.5px 1.5px at 160px 60px,
+      rgba(200, 225, 255, 0.65),
+      transparent
+    ),
+    radial-gradient(1px 1px at 200px 180px, rgba(180, 210, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 120px 215px, rgba(255, 255, 255, 0.4), transparent);
+  background-repeat: repeat;
+  background-size: 240px 240px;
+  opacity: 0.55;
 }
 
 /* Réinitialise le smooth-scroll pour les utilisateurs sensibles au mouvement. */
