@@ -1,0 +1,15 @@
+---
+import Section from './Section.astro';
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+---
+
+<Section
+  id="projets"
+  eyebrow="Projets"
+  title="Une sélection de réalisations"
+>
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+</Section>
