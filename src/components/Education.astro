@@ -3,7 +3,7 @@ import Section from './Section.astro';
 import { education } from '../data/education';
 ---
 
-<Section id="formation" eyebrow="Formation" title="Mes diplômes">
+<Section id="formation" eyebrow="Formation" title="Mes diplômes" alt={true}>
   <div class="grid gap-4 sm:grid-cols-2">
     {
       education.map((item) => (

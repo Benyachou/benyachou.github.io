@@ -1,0 +1,126 @@
+---
+/**
+ * Maquette d'architecture réseau (SVG inline, responsive, adaptée au mode
+ * sombre via les utilitaires de couleur "fill" et "stroke" de Tailwind).
+ *
+ * Topologie représentée : Internet → pare-feu/UTM → cœur de réseau (switch L3
+ * avec trunk VLAN), une DMZ, et trois VLAN cloisonnés (Serveurs, Utilisateurs,
+ * Admin & sauvegarde).
+ */
+---
+
+<svg
+  viewBox="0 0 820 600"
+  class="h-auto w-full font-sans"
+  role="img"
+  aria-label="Maquette d'architecture réseau d'entreprise : Internet relié à un pare-feu, puis au cœur de réseau (switch de niveau 3) qui dessert une DMZ et trois VLAN cloisonnés — Serveurs (Active Directory, fichiers, hyperviseur), Utilisateurs (postes Windows, périphériques) et Administration & sauvegarde (NAS, poste d'admin, supervision)."
+>
+  <!-- ============ Connecteurs ============ -->
+  <g
+    class="stroke-slate-300 dark:stroke-slate-600"
+    stroke-width="2"
+    fill="none"
+  >
+    <path d="M410 72 V95" />
+    <path d="M410 141 V180" />
+    <path d="M495 196 H685 V141" />
+    <path d="M410 226 V270" />
+    <path d="M150 270 H655" />
+    <path d="M155 270 V290" />
+    <path d="M405 270 V290" />
+    <path d="M655 270 V290" />
+  </g>
+
+  <!-- ============ Internet ============ -->
+  <g class="fill-slate-200 dark:fill-slate-700">
+    <path
+      d="M375 60 a22 22 0 0 1 4-43 a26 26 0 0 1 50-4 a20 20 0 0 1 16 47 z"
+    ></path>
+  </g>
+  <text
+    x="410"
+    y="46"
+    text-anchor="middle"
+    font-size="12"
+    class="fill-slate-600 dark:fill-slate-300"
+  >
+    Internet
+  </text>
+
+  <!-- ============ Backbone (accent) ============ -->
+  <g class="fill-accent-500">
+    <rect x="340" y="95" width="140" height="46" rx="8"></rect>
+    <rect x="325" y="180" width="170" height="46" rx="8"></rect>
+    <rect x="600" y="95" width="170" height="46" rx="8"></rect>
+  </g>
+  <g
+    text-anchor="middle"
+    class="fill-white"
+    font-size="12"
+    font-weight="600"
+  >
+    <text x="410" y="123">Pare-feu / UTM</text>
+    <text x="410" y="201">Switch L3</text>
+    <text x="410" y="217" font-size="10" font-weight="400">VLAN trunk</text>
+    <text x="685" y="123">DMZ — Reverse proxy</text>
+  </g>
+
+  <!-- ============ Conteneurs VLAN ============ -->
+  <g
+    class="fill-slate-50 stroke-slate-200 dark:fill-slate-900 dark:stroke-slate-700"
+    stroke-width="1.5"
+  >
+    <rect x="40" y="290" width="230" height="290" rx="12"></rect>
+    <rect x="300" y="290" width="210" height="290" rx="12"></rect>
+    <rect x="540" y="290" width="230" height="290" rx="12"></rect>
+  </g>
+  <g
+    text-anchor="middle"
+    font-size="12"
+    font-weight="700"
+    class="fill-accent-600 dark:fill-accent-400"
+  >
+    <text x="155" y="318">VLAN 10 — Serveurs</text>
+    <text x="405" y="318">VLAN 20 — Utilisateurs</text>
+    <text x="655" y="318">VLAN 30 — Admin & sauvegarde</text>
+  </g>
+
+  <!-- ============ Équipements ============ -->
+  <g
+    class="fill-white stroke-slate-300 dark:fill-slate-800 dark:stroke-slate-600"
+    stroke-width="1.5"
+  >
+    <!-- VLAN 10 -->
+    <rect x="60" y="338" width="190" height="48" rx="8"></rect>
+    <rect x="60" y="402" width="190" height="48" rx="8"></rect>
+    <rect x="60" y="466" width="190" height="48" rx="8"></rect>
+    <!-- VLAN 20 -->
+    <rect x="320" y="338" width="170" height="48" rx="8"></rect>
+    <rect x="320" y="402" width="170" height="48" rx="8"></rect>
+    <!-- VLAN 30 -->
+    <rect x="560" y="338" width="190" height="48" rx="8"></rect>
+    <rect x="560" y="402" width="190" height="48" rx="8"></rect>
+    <rect x="560" y="466" width="190" height="48" rx="8"></rect>
+  </g>
+  <g
+    text-anchor="middle"
+    font-size="11"
+    class="fill-slate-700 dark:fill-slate-200"
+  >
+    <!-- VLAN 10 -->
+    <text x="155" y="358">Active Directory</text>
+    <text x="155" y="372" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">DC · DNS · DHCP · GPO</text>
+    <text x="155" y="431">Serveur de fichiers</text>
+    <text x="155" y="490">Hyperviseur</text>
+    <text x="155" y="504" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">Hyper-V / VMware</text>
+    <!-- VLAN 20 -->
+    <text x="405" y="367">Postes Windows</text>
+    <text x="405" y="431">Imprimantes & périph.</text>
+    <!-- VLAN 30 -->
+    <text x="655" y="358">NAS — sauvegarde</text>
+    <text x="655" y="372" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">stratégie 3-2-1</text>
+    <text x="655" y="431">Poste admin</text>
+    <text x="655" y="445" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">PowerShell · RSAT</text>
+    <text x="655" y="495">Supervision & journaux</text>
+  </g>
+</svg>
