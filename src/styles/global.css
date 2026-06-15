@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+/* Mode sombre piloté par une classe `.dark` sur <html> (toggle + prefers-color-scheme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Couleur d'accent : bleu pétrole. */
+  --color-accent-50: #eaf4fb;
+  --color-accent-100: #d4e9f7;
+  --color-accent-200: #a9d3ef;
+  --color-accent-300: #7dbde7;
+  --color-accent-400: #52a7df;
+  --color-accent-500: #2e86c1;
+  --color-accent-600: #256b9a;
+  --color-accent-700: #1c5074;
+  --color-accent-800: #13364d;
+  --color-accent-900: #0a1b27;
+
+  /* Pile typographique : Inter si disponible, sinon polices système. Aucune
+     requête réseau → meilleur score Lighthouse et respect de la vie privée. */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Décalage pour la nav sticky lors du saut vers une ancre. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  @apply bg-white text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200;
+  font-family: var(--font-sans);
+}
+
+/* Réinitialise le smooth-scroll pour les utilisateurs sensibles au mouvement. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* --- Animation discrète d'apparition au scroll --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
