@@ -26,5 +26,5 @@ export const site: SiteConfig = {
   cvPath: 'cv.pdf',
   description:
     'Portfolio de Yassine Benyachou, développeur polyvalent (web, mobile, Python/IA) et technicien systèmes & réseaux. Découvrez mes projets, mon expérience et mes compétences.',
-  siteUrl: 'https://benyachou.github.io/portfolio',
+  siteUrl: 'https://benyachou.github.io',
 };

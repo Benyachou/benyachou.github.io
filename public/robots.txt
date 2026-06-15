@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://benyachou.github.io/portfolio/sitemap-index.xml
+Sitemap: https://benyachou.github.io/sitemap-index.xml

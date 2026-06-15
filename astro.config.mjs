@@ -16,16 +16,17 @@ import tailwindcss from '@tailwindcss/vite';
 //      https://benyachou.github.io/
 //      → SITE = 'https://benyachou.github.io'  /  BASE = '/'
 //
-// Configuration par défaut : cas n°1 (dépôt "portfolio").
-// Pour le cas n°2, remplacer BASE par '/'.
+// Configuration par défaut : cas n°2 (dépôt "benyachou.github.io", racine).
+// Pour le cas n°1 (dépôt "portfolio"), remplacer BASE par '/portfolio'.
 // ---------------------------------------------------------------------------
 const SITE = 'https://benyachou.github.io';
-const BASE = '/portfolio';
+const BASE = '/';
 
 export default defineConfig({
   site: SITE,
   base: BASE,
-  trailingSlash: 'ignore',
+  // URL sans slash final → évite les doublons dans le sitemap.
+  trailingSlash: 'never',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

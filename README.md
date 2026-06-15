@@ -21,8 +21,8 @@ npm install      # installe les dépendances
 npm run dev      # serveur de dev → http://localhost:4321
 ```
 
-> ℹ️ Avec un `base` configuré (voir ci-dessous), l'URL locale est
-> `http://localhost:4321/portfolio/`.
+> ℹ️ Si tu repasses sur un `base` non racine (ex. `/portfolio`), l'URL locale
+> devient `http://localhost:4321/portfolio/`.
 
 Autres commandes :
 
@@ -83,10 +83,10 @@ chaque push sur `main`.
 
 Dans `astro.config.mjs`, ajuste `SITE` et `BASE` selon le **nom du dépôt** :
 
-| Dépôt GitHub              | URL publique                          | `BASE`        |
-| ------------------------- | ------------------------------------- | ------------- |
-| `portfolio` (par défaut)  | `benyachou.github.io/portfolio/`      | `'/portfolio'`|
-| `benyachou.github.io`     | `benyachou.github.io/`                | `'/'`         |
+| Dépôt GitHub                       | URL publique                     | `BASE`         |
+| ---------------------------------- | -------------------------------- | -------------- |
+| `benyachou.github.io` (par défaut) | `benyachou.github.io/`           | `'/'`          |
+| `portfolio`                        | `benyachou.github.io/portfolio/` | `'/portfolio'` |
 
 > Si tu changes `BASE`, pense à mettre à jour l'URL dans
 > `public/robots.txt` et `siteUrl` dans `src/data/site.ts`.
