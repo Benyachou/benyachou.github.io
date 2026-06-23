@@ -17,7 +17,7 @@ export interface SiteConfig {
 
 export const site: SiteConfig = {
   name: 'Yassine Benyachou',
-  role: 'Développeur · Technicien Systèmes & Réseaux',
+  role: 'Développeur Full-Stack & Technicien Systèmes · Réseaux',
   tagline:
     'Je conçois des solutions complètes — du code testé et déployé en CI/CD jusqu’au support et à la maintenance en production.',
   email: 'ben.yachou@yahoo.com',
@@ -25,6 +25,6 @@ export const site: SiteConfig = {
   githubUrl: 'https://github.com/Benyachou',
   cvPath: 'cv.pdf',
   description:
-    'Portfolio de Yassine Benyachou, développeur polyvalent (web, mobile, Python/IA) et technicien systèmes & réseaux. Découvrez mes projets, mon expérience et mes compétences.',
+    'Portfolio de Yassine Benyachou, développeur full-stack (web, mobile Flutter, Python/IA) et technicien systèmes & réseaux. Découvrez mes projets, mon expérience et mes compétences.',
   siteUrl: 'https://benyachou.github.io',
 };

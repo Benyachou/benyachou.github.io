@@ -9,23 +9,23 @@ export interface EducationItem {
 
 export const education: EducationItem[] = [
   {
-    title: 'Technicien Supérieur Systèmes & Réseaux',
-    school: 'OFIAQ',
+    title: 'BTS Systèmes Numériques — Réseaux & Télécoms',
+    school: 'OFIAQ, Montpellier',
     period: '2026',
   },
   {
-    title: 'Développeur Web & Mobile',
-    school: 'EPITECH',
+    title: 'Titre Développeur Web & Mobile',
+    school: 'EPITECH, Montpellier',
     period: '2019',
   },
   {
     title: 'DUT Informatique',
-    school: 'IUT Montpellier',
+    school: 'IUT de Montpellier',
     period: '2017 – 2018',
   },
   {
     title: 'Baccalauréat Scientifique',
-    school: '',
-    period: '',
+    school: 'Université de Montpellier',
+    period: '2016',
   },
 ];

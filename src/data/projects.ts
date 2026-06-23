@@ -19,6 +19,13 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: 'Festino',
+    description:
+      'ERP de gestion d’agence événementielle : CRM, module de devis, gestion des partenaires et audit de sécurité documenté. Architecture Django modulaire, containerisation Docker (dev + prod) et tests automatisés pytest.',
+    stack: ['Django', 'Python', 'Docker', 'PostgreSQL', 'pytest'],
+    repo: 'https://github.com/Benyachou/Festino',
+  },
+  {
     title: 'Al-awqat',
     description:
       'Application Flutter d’horaires de prière, multi-plateforme (Android/Windows) et 100 % hors-ligne. Architecture en couches, tests unitaires, CI/CD publiant l’APK à chaque release.',
@@ -26,11 +33,11 @@ export const projects: Project[] = [
     repo: 'https://github.com/Benyachou/al-awqat',
   },
   {
-    title: 'job-bot',
+    title: 'bot-job',
     description:
-      'Assistant de recherche d’emploi automatisé. Pipeline modulaire (recherche → scoring → génération → candidature), 7 connecteurs de sources à interface commune, intégration LLM et logique résiliente non bloquante.',
+      'Pipeline de recherche d’emploi automatisé : scraping → scoring LLM → génération de candidature. 7 connecteurs de sources à interface commune et gestion d’erreurs résiliente non bloquante.',
     stack: ['Python', 'Pydantic', 'API REST', 'LLM'],
-    repo: 'https://github.com/Benyachou/job-bot',
+    repo: 'https://github.com/Benyachou/bot-job',
   },
   {
     title: 'Canoë Montana²',
