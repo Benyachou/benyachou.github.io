@@ -12,9 +12,9 @@ import { skillGroups } from '../data/skills';
   <div class="grid gap-6 md:grid-cols-2">
     {
       skillGroups.map((group) => (
-        <div class="reveal rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900/60">
-          <div class="mb-4 flex items-center gap-3">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-50 text-accent-600 dark:bg-accent-900/40 dark:text-accent-400">
+        <div class="reveal surface surface-hover p-6">
+          <div class="mb-5 flex items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-500/15 text-accent-300 ring-1 ring-accent-400/20">
               {group.icon === 'code' ? (
                 <svg
                   class="h-5 w-5"
@@ -47,13 +47,13 @@ import { skillGroups } from '../data/skills';
                 </svg>
               )}
             </span>
-            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">
+            <h3 class="text-xl font-semibold text-white">
               {group.title}
             </h3>
           </div>
           <ul class="flex flex-wrap gap-2">
             {group.items.map((item) => (
-              <li class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
+              <li class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm font-medium text-slate-200 transition-colors hover:border-accent-400/40 hover:text-white">
                 {item}
               </li>
             ))}

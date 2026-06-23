@@ -16,35 +16,47 @@ const cvHref = withBase(site.cvPath);
 
   <div class="mx-auto max-w-5xl px-4 pt-28 pb-24 sm:px-6 sm:pt-36 sm:pb-32">
     <p
-      class="reveal mb-4 text-sm font-semibold uppercase tracking-widest text-accent-300"
+      class="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-200 backdrop-blur-sm"
     >
+      <span class="relative flex h-2 w-2" aria-hidden="true">
+        <span
+          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+        ></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+      </span>
+      Disponible pour de nouvelles opportunités
+    </p>
+    <p
+      class="reveal mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-widest text-accent-300"
+    >
+      <span class="accent-bar" aria-hidden="true"></span>
       {site.role}
     </p>
     <h1
-      class="reveal mb-6 text-4xl font-extrabold tracking-tight text-white drop-shadow-sm sm:text-5xl md:text-6xl"
+      class="reveal mb-6 text-4xl font-extrabold tracking-tight drop-shadow-sm sm:text-5xl md:text-6xl"
     >
-      {site.name}
+      <span class="text-gradient">{site.name}</span>
     </h1>
-    <p class="reveal mb-10 max-w-2xl text-lg leading-relaxed text-slate-200">
+    <p class="reveal mb-10 max-w-2xl text-lg leading-relaxed text-slate-300">
       {site.tagline}
     </p>
 
     <div class="reveal flex flex-wrap items-center gap-3">
       <a
         href="#projets"
-        class="rounded-md bg-accent-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-400"
+        class="btn-primary rounded-lg px-5 py-2.5 text-sm font-semibold text-white"
       >
         Voir mes projets
       </a>
       <a
         href="#contact"
-        class="rounded-md border border-white/30 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white/10"
+        class="rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/10"
       >
         Me contacter
       </a>
       <a
         href={cvHref}
-        class="rounded-md border border-white/30 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white/10"
+        class="rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/10"
       >
         Télécharger le CV
       </a>
