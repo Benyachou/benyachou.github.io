@@ -9,9 +9,9 @@ export interface EducationItem {
 
 export const education: EducationItem[] = [
   {
-    title: 'BTS Systèmes Numériques — Réseaux & Télécoms',
+    title: 'BTS Systèmes Numériques — Réseaux',
     school: 'OFIAQ, Montpellier',
-    period: '2026',
+    period: 'En cours · fin 2026',
   },
   {
     title: 'Titre Développeur Web & Mobile',

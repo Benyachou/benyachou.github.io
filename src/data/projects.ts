@@ -11,13 +11,35 @@ export interface Project {
   description: string;
   /** Badges de stack technique. */
   stack: string[];
-  /** Lien vers le dépôt GitHub. */
-  repo: string;
+  /** Lien vers le dépôt GitHub (absent si le dépôt est privé). */
+  repo?: string;
   /** Lien optionnel vers une démo en ligne. */
   demo?: string;
 }
 
 export const projects: Project[] = [
+  {
+    title: 'Canoë Horizon',
+    description:
+      'Plateforme complète livrée à un client réel et en production : site vitrine, réservation en ligne et back-office de gestion (planning, calendrier, suivi du CA). Sécurité de bout en bout (policies RLS Supabase, clé service en serverless, captcha) et e-mails de confirmation automatiques.',
+    stack: ['JavaScript', 'Supabase', 'Cloudflare Pages', 'Serverless'],
+    demo: 'https://canoe-horizon.pages.dev',
+  },
+  {
+    title: 'Canoë Montana',
+    description:
+      'PWA de gestion des réservations canoë/kayak, utilisée quotidiennement sur le terrain. Architecture offline-first (Service Worker + synchronisation Supabase multi-appareils), tarification dynamique et logique métier complète : tarifs, réductions de groupe, contraintes.',
+    stack: ['Cloudflare Pages', 'Supabase', 'PostgreSQL', 'PWA'],
+    repo: 'https://github.com/Benyachou/canoe-montana',
+    demo: 'https://benyachou.github.io/canoe-montana',
+  },
+  {
+    title: 'Bot de traduction LLM',
+    description:
+      'Bot de traduction automatisée par LLM sur une base de 300 000+ termes, en production continue 24/7. Pipeline de validation des sorties (~40 % d’erreurs en moins) et architecture Python modulaire multi-threading.',
+    stack: ['Python', 'Gemini API', 'Multi-threading'],
+    repo: 'https://github.com/Benyachou/WoW-Translator-Bot',
+  },
   {
     title: 'Festino',
     description:
@@ -31,19 +53,5 @@ export const projects: Project[] = [
       'Application Flutter d’horaires de prière, multi-plateforme (Android/Windows) et 100 % hors-ligne. Architecture en couches, tests unitaires, CI/CD publiant l’APK à chaque release.',
     stack: ['Dart', 'Flutter', 'GitHub Actions'],
     repo: 'https://github.com/Benyachou/al-awqat',
-  },
-  {
-    title: 'bot-job',
-    description:
-      'Pipeline de recherche d’emploi automatisé : scraping → scoring LLM → génération de candidature. 7 connecteurs de sources à interface commune et gestion d’erreurs résiliente non bloquante.',
-    stack: ['Python', 'Pydantic', 'API REST', 'LLM'],
-    repo: 'https://github.com/Benyachou/bot-job',
-  },
-  {
-    title: 'Canoë Montana²',
-    description:
-      'Application web de réservation full-stack. Interface hébergée sur Cloudflare Pages, données et authentification via Supabase (base partagée entre tous les appareils). Logique métier complète : tarifs, réductions de groupe, contraintes.',
-    stack: ['Cloudflare Pages', 'Supabase', 'PostgreSQL', 'Auth'],
-    repo: 'https://github.com/Benyachou/canoe-montana',
   },
 ];
