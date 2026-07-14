@@ -31,7 +31,7 @@ export const projects: Project[] = [
       'PWA de gestion des réservations canoë/kayak, utilisée quotidiennement sur le terrain. Architecture offline-first (Service Worker + synchronisation Supabase multi-appareils), tarification dynamique et logique métier complète : tarifs, réductions de groupe, contraintes.',
     stack: ['Cloudflare Pages', 'Supabase', 'PostgreSQL', 'PWA'],
     repo: 'https://github.com/Benyachou/canoe-montana',
-    demo: 'https://benyachou.github.io/canoe-montana',
+    demo: 'https://canoe-montana.pages.dev',
   },
   {
     title: 'Bot de traduction LLM',
