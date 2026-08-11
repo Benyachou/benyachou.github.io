@@ -1,31 +1,28 @@
 /**
- * Formation, affichée du plus récent au plus ancien.
+ * Formation, affichée du plus récent au plus ancien (alignée sur le CV 2026).
  */
 export interface EducationItem {
   title: string;
   school: string;
   period: string;
+  note?: string;
 }
 
 export const education: EducationItem[] = [
   {
-    title: 'BTS Systèmes Numériques — Réseaux',
+    title: 'Technicien Systèmes et Réseaux (Bac+2)',
     school: 'OFIAQ, Montpellier',
-    period: 'En cours · fin 2026',
+    period: '2026',
+    note: 'Diplôme validé',
   },
   {
-    title: 'Titre Développeur Web & Mobile',
+    title: 'Concepteur Développeur d’Applications (Bac+3)',
+    school: 'En alternance chez Décipro, Montpellier',
+    period: '2021',
+  },
+  {
+    title: 'Développeur Web et Web Mobile (Bac+2)',
     school: 'EPITECH, Montpellier',
-    period: '2019',
-  },
-  {
-    title: 'DUT Informatique',
-    school: 'IUT de Montpellier',
-    period: '2017 – 2018',
-  },
-  {
-    title: 'Baccalauréat Scientifique',
-    school: 'Université de Montpellier',
-    period: '2016',
+    period: '2020',
   },
 ];

@@ -3,104 +3,207 @@ import { site } from '../data/site';
 import { withBase } from '../lib/path';
 
 const cvHref = withBase(site.cvPath);
+const photo = withBase('photo.png');
+
+/**
+ * Topologie du hero : chaque nœud est une section du site, câblée au nœud
+ * central (YB-CORE). Les ports sont un clin d'œil réseau : 443 (web),
+ * 22 (SSH), 8006 (Proxmox), 179 (BGP), 25 (SMTP).
+ */
+const nodes = [
+  { id: 'n-competences', href: '#competences', label: 'compétences', port: ':22', x: 60, y: 66, w: 128 },
+  { id: 'n-projets', href: '#projets', label: 'projets', port: ':443', x: 380, y: 48, w: 104 },
+  { id: 'n-lab', href: '#lab', label: 'le lab', port: ':8006', x: 428, y: 258, w: 110 },
+  { id: 'n-parcours', href: '#parcours', label: 'parcours', port: ':179', x: 48, y: 322, w: 112 },
+  { id: 'n-contact', href: '#contact', label: 'contact', port: ':25', x: 236, y: 434, w: 104 },
+];
+
+// Câbles orthogonaux (style schéma) du centre vers chaque nœud.
+const cables = [
+  { id: 'c1', d: 'M 280 250 L 190 250 L 190 96 L 188 96', dur: '3.2s' },
+  { id: 'c2', d: 'M 280 250 L 280 140 L 380 140 L 380 78 L 384 78', dur: '2.6s' },
+  { id: 'c3', d: 'M 280 250 L 380 250 L 380 273 L 428 273', dur: '2.2s' },
+  { id: 'c4', d: 'M 280 250 L 200 250 L 200 337 L 160 337', dur: '2.9s' },
+  { id: 'c5', d: 'M 280 250 L 280 449 L 288 449', dur: '2.4s' },
+];
 ---
 
-<section id="hero" class="relative scroll-mt-16 overflow-hidden">
-  <!-- Halo bleu plus intense, localisé sur le hero (par-dessus le fond cosmique global). -->
+<section id="hero" class="relative overflow-hidden">
   <div
-    class="pointer-events-none absolute inset-0 -z-10"
-    style="background:radial-gradient(60% 70% at 72% 6%, rgba(56,150,220,0.22), transparent 60%)"
-    aria-hidden="true"
+    class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-14 sm:px-6 sm:pt-20 lg:min-h-[calc(100vh-4rem)] lg:grid-cols-[1.05fr_1fr] lg:gap-6 lg:pb-24"
   >
-  </div>
+    <!-- Colonne texte -->
+    <div class="hero-in">
+      <p class="eyebrow mb-5">~$ whoami</p>
 
-  <div class="mx-auto max-w-5xl px-4 pt-28 pb-24 sm:px-6 sm:pt-36 sm:pb-32">
-    <p
-      class="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-200 backdrop-blur-sm"
-    >
-      <span class="relative flex h-2 w-2" aria-hidden="true">
-        <span
-          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
-        ></span>
-        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
-      </span>
-      Disponible pour de nouvelles opportunités
-    </p>
-    <p
-      class="reveal mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-widest text-accent-300"
-    >
-      <span class="accent-bar" aria-hidden="true"></span>
-      {site.role}
-    </p>
-    <h1
-      class="reveal mb-6 text-4xl font-extrabold tracking-tight drop-shadow-sm sm:text-5xl md:text-6xl"
-    >
-      <span class="text-gradient">{site.name}</span>
-    </h1>
-    <p class="reveal mb-10 max-w-2xl text-lg leading-relaxed text-slate-300">
-      {site.tagline}
-    </p>
+      <h1 class="display text-[2.6rem] leading-[0.95] text-text sm:text-6xl lg:text-7xl">
+        Yassine<br />
+        Benyachou<span class="text-accent">.</span>
+      </h1>
 
-    <div class="reveal flex flex-wrap items-center gap-3">
-      <a
-        href="#projets"
-        class="btn-primary rounded-lg px-5 py-2.5 text-sm font-semibold text-white"
-      >
-        Voir mes projets
-      </a>
-      <a
-        href="#contact"
-        class="rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/10"
-      >
-        Me contacter
-      </a>
-      <a
-        href={cvHref}
-        class="rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/10"
-      >
-        Télécharger le CV
-      </a>
+      <p class="mt-5 font-mono text-sm tracking-wide text-cable sm:text-base">
+        technicien systèmes &amp; réseaux · développeur
+      </p>
+
+      <p class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+        {site.tagline}
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a href={cvHref} class="btn-primary">Télécharger le CV</a>
+        <a href="#projets" class="btn-ghost">Voir les projets</a>
+        <a href={site.githubUrl} class="btn-ghost" rel="noopener">GitHub</a>
+      </div>
+
+      <p class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-muted">
+        <span class="inline-flex items-center gap-2">
+          <span class="led" aria-hidden="true"></span> disponible
+        </span>
+        <span>{site.location}</span>
+        <span>permis B · véhiculé</span>
+      </p>
     </div>
 
-    <div class="reveal mt-8 flex flex-wrap items-center gap-5">
-      <a
-        href={site.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 text-sm font-medium text-slate-200 transition-colors hover:text-white"
+    <!-- Topologie interactive : cliquer un nœud navigue vers la section. -->
+    <div class="hero-in mx-auto w-full max-w-[520px] lg:max-w-none" style="animation-delay: 0.15s">
+      <svg
+        viewBox="0 0 560 520"
+        class="h-auto w-full"
+        role="img"
+        aria-label="Topologie du site : les sections du portfolio reliées en réseau autour de Yassine"
       >
-        <svg
-          class="h-5 w-5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.41 7.86 10.94.58.11.79-.25.79-.56v-2c-3.2.69-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.2-3.1-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.59.23 2.76.11 3.05.75.81 1.2 1.84 1.2 3.1 0 4.43-2.7 5.41-5.27 5.69.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5Z"
-          ></path>
-        </svg>
-        github.com/{site.github}
-      </a>
-      <a
-        href={`mailto:${site.email}`}
-        class="inline-flex items-center gap-2 text-sm font-medium text-slate-200 transition-colors hover:text-white"
-      >
-        <svg
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.8"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-          ></path>
-        </svg>
-        {site.email}
-      </a>
+        <defs>
+          <clipPath id="clip-photo">
+            <circle cx="280" cy="250" r="62"></circle>
+          </clipPath>
+        </defs>
+
+        <!-- Câbles (se dessinent au chargement) -->
+        {
+          cables.map((c, i) => (
+            <path
+              id={c.id}
+              d={c.d}
+              pathLength="1"
+              class="cable cable--lit cable-draw"
+              style={`animation-delay: ${0.3 + i * 0.15}s`}
+            />
+          ))
+        }
+
+        <!-- Paquets orange circulant sur les câbles (retirés si reduced-motion) -->
+        {
+          cables.map((c, i) => (
+            <circle r="3.2" fill="#f4772e" data-packet>
+              <animateMotion dur={c.dur} begin={`${i * 0.6}s`} repeatCount="indefinite">
+                <mpath href={`#${c.id}`} />
+              </animateMotion>
+            </circle>
+          ))
+        }
+
+        <!-- Nœud central : photo + anneaux -->
+        <g>
+          <circle cx="280" cy="250" r="86" class="ring-spin" fill="none" stroke="rgba(79,195,232,0.35)" stroke-width="1" stroke-dasharray="4 7"></circle>
+          <circle cx="280" cy="250" r="68" fill="#0d2234" stroke="#f4772e" stroke-width="2"></circle>
+          <image
+            href={photo}
+            x="212"
+            y="182"
+            width="136"
+            height="136"
+            clip-path="url(#clip-photo)"
+          ></image>
+          <text x="280" y="352" text-anchor="middle" class="node-label" fill="#eaf3fa">YB-CORE</text>
+          <text x="280" y="368" text-anchor="middle" class="node-sub" fill="#8faabf">grabels · montpellier</text>
+        </g>
+
+        <!-- Nœuds sections (cliquables) -->
+        {
+          nodes.map((n) => (
+            <a href={n.href} aria-label={`Aller à la section ${n.label}`}>
+              <g class="topo-node">
+                <rect
+                  x={n.x}
+                  y={n.y}
+                  width={n.w}
+                  height="34"
+                  fill="rgba(13,34,52,0.9)"
+                  stroke="rgba(79,195,232,0.5)"
+                  stroke-dasharray="4 3"
+                />
+                <circle cx={n.x + 14} cy={n.y + 17} r="3.5" fill="#3ddc97" />
+                <text x={n.x + 26} y={n.y + 21} class="node-label" fill="#eaf3fa">
+                  {n.label}
+                  <tspan fill="#f4772e"> {n.port}</tspan>
+                </text>
+              </g>
+            </a>
+          ))
+        }
+      </svg>
     </div>
   </div>
 </section>
+
+<style>
+  .node-label {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+  }
+
+  .node-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .topo-node {
+    cursor: pointer;
+  }
+
+  .topo-node rect {
+    transition: stroke 0.2s ease, fill 0.2s ease;
+  }
+
+  .topo-node:hover rect {
+    stroke: #f4772e;
+    fill: rgba(244, 119, 46, 0.12);
+  }
+
+  /* Anneau en rotation lente autour du nœud central. */
+  .ring-spin {
+    transform-origin: 280px 250px;
+    animation: ring-spin 40s linear infinite;
+  }
+
+  @keyframes ring-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Entrée du hero au chargement. */
+  .hero-in {
+    animation: hero-in 0.7s ease-out both;
+  }
+
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring-spin,
+    .hero-in {
+      animation: none;
+    }
+  }
+</style>

@@ -7,8 +7,11 @@ export interface SiteConfig {
   role: string;
   tagline: string;
   email: string;
+  phone: string;
+  location: string;
   github: string;
   githubUrl: string;
+  linkedinUrl: string;
   cvPath: string;
   description: string;
   /** URL absolue du site, utilisée pour l'Open Graph et le JSON-LD. */
@@ -17,14 +20,17 @@ export interface SiteConfig {
 
 export const site: SiteConfig = {
   name: 'Yassine Benyachou',
-  role: 'Technicien Systèmes & Réseaux · Développeur Full-Stack',
+  role: 'Technicien Systèmes & Réseaux · Développeur',
   tagline:
-    'Double profil : j’administre des systèmes et des réseaux, et je livre des applications web & mobiles utilisées en production par de vrais clients.',
+    'Six ans en informatique, du support de parc au développement d’applications livrées en production. Un passé de terrain qui m’a appris la relation client.',
   email: 'ben.yachou@yahoo.com',
+  phone: '06 01 00 04 62',
+  location: 'Grabels — Montpellier (34)',
   github: 'Benyachou',
   githubUrl: 'https://github.com/Benyachou',
+  linkedinUrl: 'https://www.linkedin.com/in/benyachou/',
   cvPath: 'cv.pdf',
   description:
-    'Portfolio de Yassine Benyachou, développeur full-stack (web, mobile Flutter, Python/IA) et technicien systèmes & réseaux. Découvrez mes projets, mon expérience et mes compétences.',
+    'Portfolio de Yassine Benyachou, technicien systèmes & réseaux et développeur (web, Python, Flutter). Applications livrées en production, laboratoire réseau, parcours et contact.',
   siteUrl: 'https://benyachou.github.io',
 };

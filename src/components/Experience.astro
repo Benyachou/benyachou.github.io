@@ -1,37 +1,89 @@
 ---
 import Section from './Section.astro';
-import { experience } from '../data/experience';
+import { hops } from '../data/experience';
 ---
 
-<Section
-  id="experience"
-  eyebrow="Expérience"
-  title="Mon parcours professionnel"
->
-  <ol class="relative ml-3 border-l border-white/10">
-    {
-      experience.map((item) => (
-        <li class="reveal mb-10 ml-6 last:mb-0">
-          <span
-            class="absolute -left-[7px] mt-1.5 h-3.5 w-3.5 rounded-full bg-accent-400 ring-4 ring-accent-500/20"
-            aria-hidden="true"
-          />
-          <p class="text-sm font-medium text-accent-300">
-            {item.period}
-          </p>
-          <h3 class="mt-0.5 text-lg font-semibold text-white">
-            {item.role}
-          </h3>
-          <p class="text-sm text-slate-400">
-            {item.company}
-          </p>
-          {item.description && (
-            <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-300">
-              {item.description}
-            </p>
-          )}
-        </li>
-      ))
-    }
-  </ol>
+<Section id="parcours" eyebrow="traceroute 2008 → 2026" title="Parcours, saut par saut">
+  <p class="reveal -mt-6 mb-10 max-w-2xl text-muted sm:text-lg">
+    Chaque étape est un saut vers la suivante — y compris les huit années de
+    terrain d’avant l’informatique : c’est là que la relation client s’apprend.
+  </p>
+
+  <div class="panel reveal p-5 sm:p-8">
+    <p class="mb-8 font-mono text-sm text-cable">
+      <span class="text-muted">$</span> traceroute yassine.benyachou
+      <span class="text-muted">— {hops.length} sauts</span>
+    </p>
+
+    <ol class="space-y-0">
+      {
+        hops.map((hop, i) => (
+          <li class={`hop relative pb-8 pl-10 last:pb-0 sm:pl-14 ${hop.kind === 'terrain' ? 'hop--terrain' : ''}`}>
+            <span class="hop-num" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+              <span class="font-mono text-sm text-accent">{hop.period}</span>
+              <span class="font-mono text-sm text-cable">{hop.host}</span>
+              {i === hops.length - 1 && (
+                <span class="font-mono text-xs text-led">← vous êtes ici</span>
+              )}
+            </div>
+            <h3 class="mt-1.5 text-lg font-semibold text-text">{hop.role}</h3>
+            <p class="mb-2.5 text-sm text-muted">{hop.company}</p>
+            <ul class="space-y-1.5">
+              {hop.facts.map((fact) => (
+                <li class="flex gap-2.5 text-sm leading-relaxed text-muted">
+                  <span class="mt-2 h-1 w-1 flex-none rounded-full bg-cable/60" aria-hidden="true" />
+                  {fact}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
 </Section>
+
+<style>
+  /* Numéro de saut + câble vertical qui relie les étapes. */
+  .hop-num {
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-cable);
+    background: var(--color-panel);
+    border: 1px solid var(--color-line);
+    padding: 0.15rem 0.4rem;
+  }
+
+  .hop::before {
+    content: '';
+    position: absolute;
+    left: 0.95rem;
+    top: 2.2rem;
+    bottom: 0.4rem;
+    width: 1px;
+    background: var(--color-line);
+  }
+
+  .hop:last-child::before {
+    display: none;
+  }
+
+  /* Étape « terrain » : hors du réseau informatique, tracée en pointillés. */
+  .hop--terrain .hop-num {
+    color: var(--color-muted);
+  }
+
+  .hop--terrain::before {
+    background: repeating-linear-gradient(
+      180deg,
+      var(--color-line) 0 4px,
+      transparent 4px 9px
+    );
+  }
+</style>

@@ -15,24 +15,23 @@ const favicon = withBase('favicon.svg');
 
 // URL canonique absolue de la page courante.
 const canonical = new URL(Astro.url.pathname, site.siteUrl).href;
-// Faute d'image dédiée, on réutilise le favicon. Dépose public/og-image.png
-// puis utilise withBase('og-image.png') pour une vraie carte sociale.
-const ogImage = new URL(favicon, Astro.site ?? site.siteUrl).href;
+// Carte sociale : la photo de profil, hébergée dans public/.
+const ogImage = new URL(withBase('photo.png'), site.siteUrl).href;
 
 // Données structurées JSON-LD (Person) pour le SEO.
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: site.name,
-  jobTitle: 'Développeur · Technicien Systèmes & Réseaux',
+  jobTitle: site.role,
   email: `mailto:${site.email}`,
   url: site.siteUrl,
-  sameAs: [site.githubUrl],
+  sameAs: [site.githubUrl, site.linkedinUrl],
 };
 ---
 
 <!doctype html>
-<html lang="fr" class="dark scroll-smooth">
+<html lang="fr" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,7 +40,15 @@ const personJsonLd = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={favicon} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#2e86c1" />
+    <meta name="theme-color" content="#06131f" />
+
+    <!-- Typographies : Archivo (titres), IBM Plex Sans / Mono (texte, labels) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
 
     <!-- Open Graph / réseaux sociaux -->
     <meta property="og:type" content="website" />
@@ -50,7 +57,7 @@ const personJsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="fr_FR" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
@@ -66,17 +73,23 @@ const personJsonLd = {
     />
   </head>
   <body>
-    <!-- Fond cosmique fixe, derrière tout le contenu. -->
-    <div class="cosmic" aria-hidden="true"></div>
+    <!-- Fond « papier de schéma » fixe, derrière tout le contenu. -->
+    <div class="blueprint" aria-hidden="true"></div>
 
     <slot />
 
-    <!-- Apparition douce des sections au scroll (désactivée si prefers-reduced-motion). -->
     <script is:inline>
       (() => {
         const reduce = window.matchMedia(
           '(prefers-reduced-motion: reduce)',
         ).matches;
+
+        // Paquets animés (SMIL) : retirés si l'utilisateur préfère moins de mouvement.
+        if (reduce) {
+          document.querySelectorAll('[data-packet]').forEach((el) => el.remove());
+        }
+
+        // Apparition douce des sections au scroll.
         const els = document.querySelectorAll('.reveal');
         if (reduce || !('IntersectionObserver' in window)) {
           els.forEach((el) => el.classList.add('is-visible'));

@@ -3,24 +3,17 @@ import Section from './Section.astro';
 import { education } from '../data/education';
 ---
 
-<Section id="formation" eyebrow="Formation" title="Mes diplômes" alt={true}>
-  <div class="grid gap-4 sm:grid-cols-2">
+<Section id="formation" eyebrow="diplômes installés" title="Formation">
+  <div class="grid gap-5 md:grid-cols-3">
     {
       education.map((item) => (
-        <div class="reveal surface surface-hover p-5">
-          {item.period && (
-            <p class="text-sm font-medium text-accent-300">
-              {item.period}
-            </p>
-          )}
-          <h3 class="mt-0.5 text-lg font-semibold text-white">
-            {item.title}
-          </h3>
-          {item.school && (
-            <p class="text-sm text-slate-400">
-              {item.school}
-            </p>
-          )}
+        <div class="panel panel-hover reveal p-5">
+          <p class="mb-2 flex items-center justify-between font-mono text-sm">
+            <span class="text-accent">{item.period}</span>
+            {item.note && <span class="text-led">✓ {item.note.toLowerCase()}</span>}
+          </p>
+          <h3 class="mb-1 font-semibold text-text">{item.title}</h3>
+          <p class="text-sm text-muted">{item.school}</p>
         </div>
       ))
     }

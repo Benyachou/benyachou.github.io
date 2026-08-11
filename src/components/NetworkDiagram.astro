@@ -1,126 +1,115 @@
 ---
 /**
- * Maquette d'architecture réseau (SVG inline, responsive, adaptée au mode
- * sombre via les utilitaires de couleur "fill" et "stroke" de Tailwind).
- *
- * Topologie représentée : Internet → pare-feu/UTM → cœur de réseau (switch L3
- * avec trunk VLAN), une DMZ, et trois VLAN cloisonnés (Serveurs, Utilisateurs,
- * Admin & sauvegarde).
+ * Schéma du laboratoire personnel : pfSense en tête, switch L2 avec VLANs,
+ * Proxmox et supervision. Les paquets orange matérialisent les flux ;
+ * ils sont retirés si l'utilisateur préfère réduire le mouvement.
  */
+const flows = [
+  { id: 'f-wan', d: 'M 190 52 L 375 52', dur: '2.4s' },
+  { id: 'f-fw', d: 'M 470 82 L 470 150', dur: '1.8s' },
+  { id: 'f-v10', d: 'M 470 194 L 470 220 L 160 220 L 160 250', dur: '3s' },
+  { id: 'f-v20', d: 'M 470 194 L 470 250', dur: '2s' },
+  { id: 'f-v30', d: 'M 470 194 L 470 220 L 740 220 L 740 250', dur: '3.2s' },
+];
 ---
 
 <svg
-  viewBox="0 0 820 600"
-  class="h-auto w-full font-sans"
+  viewBox="0 0 900 470"
+  class="h-auto w-full"
   role="img"
-  aria-label="Maquette d'architecture réseau d'entreprise : Internet relié à un pare-feu, puis au cœur de réseau (switch de niveau 3) qui dessert une DMZ et trois VLAN cloisonnés — Serveurs (Active Directory, fichiers, hyperviseur), Utilisateurs (postes Windows, périphériques) et Administration & sauvegarde (NAS, poste d'admin, supervision)."
+  aria-label="Schéma du laboratoire réseau : Internet, pare-feu pfSense, switch avec trois VLANs — supervision, serveurs Proxmox et clients — plus une capture Wireshark"
 >
-  <!-- ============ Connecteurs ============ -->
-  <g
-    class="stroke-slate-300 dark:stroke-slate-600"
-    stroke-width="2"
-    fill="none"
-  >
-    <path d="M410 72 V95" />
-    <path d="M410 141 V180" />
-    <path d="M495 196 H685 V141" />
-    <path d="M410 226 V270" />
-    <path d="M150 270 H655" />
-    <path d="M155 270 V290" />
-    <path d="M405 270 V290" />
-    <path d="M655 270 V290" />
+  <defs>
+    <g id="lab-box">
+      <rect width="190" height="52" fill="rgba(13,34,52,0.9)" stroke="rgba(79,195,232,0.55)"></rect>
+    </g>
+  </defs>
+
+  <!-- Liaisons -->
+  {flows.map((f) => <path id={f.id} d={f.d} class="cable cable--lit"></path>)}
+  <!-- Capture Wireshark (lien pointillé, hors flux) -->
+  <path d="M 470 116 L 620 116" class="cable" stroke-dasharray="2 5"></path>
+
+  <!-- Paquets -->
+  {
+    flows.map((f, i) => (
+      <circle r="3" fill="#f4772e" data-packet>
+        <animateMotion dur={f.dur} begin={`${i * 0.5}s`} repeatCount="indefinite">
+          <mpath href={`#${f.id}`} />
+        </animateMotion>
+      </circle>
+    ))
+  }
+
+  <!-- Internet -->
+  <g>
+    <rect x="40" y="30" width="150" height="44" fill="rgba(13,34,52,0.9)" stroke="rgba(143,170,191,0.5)" stroke-dasharray="5 4"></rect>
+    <text x="115" y="57" text-anchor="middle" class="lab-label" fill="#8faabf">INTERNET</text>
   </g>
 
-  <!-- ============ Internet ============ -->
-  <g class="fill-slate-200 dark:fill-slate-700">
-    <path
-      d="M375 60 a22 22 0 0 1 4-43 a26 26 0 0 1 50-4 a20 20 0 0 1 16 47 z"
-    ></path>
-  </g>
-  <text
-    x="410"
-    y="46"
-    text-anchor="middle"
-    font-size="12"
-    class="fill-slate-600 dark:fill-slate-300"
-  >
-    Internet
-  </text>
-
-  <!-- ============ Backbone (accent) ============ -->
-  <g class="fill-accent-500">
-    <rect x="340" y="95" width="140" height="46" rx="8"></rect>
-    <rect x="325" y="180" width="170" height="46" rx="8"></rect>
-    <rect x="600" y="95" width="170" height="46" rx="8"></rect>
-  </g>
-  <g
-    text-anchor="middle"
-    class="fill-white"
-    font-size="12"
-    font-weight="600"
-  >
-    <text x="410" y="123">Pare-feu / UTM</text>
-    <text x="410" y="201">Switch L3</text>
-    <text x="410" y="217" font-size="10" font-weight="400">VLAN trunk</text>
-    <text x="685" y="123">DMZ — Reverse proxy</text>
+  <!-- pfSense -->
+  <g>
+    <rect x="375" y="26" width="190" height="56" fill="rgba(13,34,52,0.95)" stroke="#f4772e"></rect>
+    <text x="470" y="48" text-anchor="middle" class="lab-label" fill="#eaf3fa">pfSense</text>
+    <text x="470" y="66" text-anchor="middle" class="lab-sub" fill="#8faabf">pare-feu · VPN · NAT</text>
   </g>
 
-  <!-- ============ Conteneurs VLAN ============ -->
-  <g
-    class="fill-slate-50 stroke-slate-200 dark:fill-slate-900 dark:stroke-slate-700"
-    stroke-width="1.5"
-  >
-    <rect x="40" y="290" width="230" height="290" rx="12"></rect>
-    <rect x="300" y="290" width="210" height="290" rx="12"></rect>
-    <rect x="540" y="290" width="230" height="290" rx="12"></rect>
-  </g>
-  <g
-    text-anchor="middle"
-    font-size="12"
-    font-weight="700"
-    class="fill-accent-600 dark:fill-accent-400"
-  >
-    <text x="155" y="318">VLAN 10 — Serveurs</text>
-    <text x="405" y="318">VLAN 20 — Utilisateurs</text>
-    <text x="655" y="318">VLAN 30 — Admin & sauvegarde</text>
+  <!-- Switch -->
+  <g>
+    <rect x="375" y="150" width="190" height="44" fill="rgba(13,34,52,0.95)" stroke="rgba(79,195,232,0.55)"></rect>
+    <text x="470" y="171" text-anchor="middle" class="lab-label" fill="#eaf3fa">Switch L2</text>
+    <text x="470" y="186" text-anchor="middle" class="lab-sub" fill="#8faabf">VLANs 802.1Q · routage L3</text>
   </g>
 
-  <!-- ============ Équipements ============ -->
-  <g
-    class="fill-white stroke-slate-300 dark:fill-slate-800 dark:stroke-slate-600"
-    stroke-width="1.5"
-  >
-    <!-- VLAN 10 -->
-    <rect x="60" y="338" width="190" height="48" rx="8"></rect>
-    <rect x="60" y="402" width="190" height="48" rx="8"></rect>
-    <rect x="60" y="466" width="190" height="48" rx="8"></rect>
-    <!-- VLAN 20 -->
-    <rect x="320" y="338" width="170" height="48" rx="8"></rect>
-    <rect x="320" y="402" width="170" height="48" rx="8"></rect>
-    <!-- VLAN 30 -->
-    <rect x="560" y="338" width="190" height="48" rx="8"></rect>
-    <rect x="560" y="402" width="190" height="48" rx="8"></rect>
-    <rect x="560" y="466" width="190" height="48" rx="8"></rect>
+  <!-- Wireshark -->
+  <g>
+    <rect x="620" y="100" width="160" height="32" fill="rgba(13,34,52,0.7)" stroke="rgba(143,170,191,0.45)" stroke-dasharray="2 3"></rect>
+    <text x="700" y="120" text-anchor="middle" class="lab-sub" fill="#8faabf">Wireshark · analyse</text>
   </g>
-  <g
-    text-anchor="middle"
-    font-size="11"
-    class="fill-slate-700 dark:fill-slate-200"
-  >
-    <!-- VLAN 10 -->
-    <text x="155" y="358">Active Directory</text>
-    <text x="155" y="372" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">DC · DNS · DHCP · GPO</text>
-    <text x="155" y="431">Serveur de fichiers</text>
-    <text x="155" y="490">Hyperviseur</text>
-    <text x="155" y="504" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">Hyper-V / VMware</text>
-    <!-- VLAN 20 -->
-    <text x="405" y="367">Postes Windows</text>
-    <text x="405" y="431">Imprimantes & périph.</text>
-    <!-- VLAN 30 -->
-    <text x="655" y="358">NAS — sauvegarde</text>
-    <text x="655" y="372" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">stratégie 3-2-1</text>
-    <text x="655" y="431">Poste admin</text>
-    <text x="655" y="445" font-size="9.5" class="fill-slate-500 dark:fill-slate-400">PowerShell · RSAT</text>
-    <text x="655" y="495">Supervision & journaux</text>
+
+  <!-- VLAN 10 · Supervision -->
+  <g>
+    <rect x="40" y="250" width="240" height="190" fill="rgba(79,195,232,0.04)" stroke="rgba(79,195,232,0.35)" stroke-dasharray="6 4"></rect>
+    <text x="56" y="276" class="lab-label" fill="#f4772e">VLAN 10 · SUPERVISION</text>
+    <rect x="70" y="296" width="180" height="36" fill="rgba(13,34,52,0.95)" stroke="rgba(79,195,232,0.5)"></rect>
+    <text x="160" y="318" text-anchor="middle" class="lab-sub" fill="#eaf3fa">Zabbix · alertes</text>
+    <rect x="70" y="346" width="180" height="36" fill="rgba(13,34,52,0.95)" stroke="rgba(79,195,232,0.5)"></rect>
+    <text x="160" y="368" text-anchor="middle" class="lab-sub" fill="#eaf3fa">GLPI · inventaire, tickets</text>
+  </g>
+
+  <!-- VLAN 20 · Serveurs -->
+  <g>
+    <rect x="330" y="250" width="240" height="190" fill="rgba(244,119,46,0.04)" stroke="rgba(244,119,46,0.4)" stroke-dasharray="6 4"></rect>
+    <text x="346" y="276" class="lab-label" fill="#f4772e">VLAN 20 · SERVEURS</text>
+    <rect x="350" y="290" width="200" height="134" fill="rgba(13,34,52,0.7)" stroke="rgba(79,195,232,0.5)"></rect>
+    <text x="450" y="310" text-anchor="middle" class="lab-sub" fill="#4fc3e8">Proxmox VE</text>
+    <rect x="365" y="322" width="170" height="32" fill="rgba(6,19,31,0.9)" stroke="rgba(79,195,232,0.4)"></rect>
+    <text x="450" y="342" text-anchor="middle" class="lab-sub" fill="#eaf3fa">VM · Windows Server / AD</text>
+    <rect x="365" y="364" width="170" height="32" fill="rgba(6,19,31,0.9)" stroke="rgba(79,195,232,0.4)"></rect>
+    <text x="450" y="384" text-anchor="middle" class="lab-sub" fill="#eaf3fa">VM · Debian · services</text>
+  </g>
+
+  <!-- VLAN 30 · Clients -->
+  <g>
+    <rect x="620" y="250" width="240" height="190" fill="rgba(61,220,151,0.04)" stroke="rgba(61,220,151,0.35)" stroke-dasharray="6 4"></rect>
+    <text x="636" y="276" class="lab-label" fill="#f4772e">VLAN 30 · CLIENTS</text>
+    <rect x="650" y="296" width="180" height="36" fill="rgba(13,34,52,0.95)" stroke="rgba(79,195,232,0.5)"></rect>
+    <text x="740" y="318" text-anchor="middle" class="lab-sub" fill="#eaf3fa">Postes de travail</text>
+    <rect x="650" y="346" width="180" height="36" fill="rgba(13,34,52,0.95)" stroke="rgba(79,195,232,0.5)"></rect>
+    <text x="740" y="368" text-anchor="middle" class="lab-sub" fill="#eaf3fa">Wi-Fi · réseau invités</text>
   </g>
 </svg>
+
+<style>
+  .lab-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+
+  .lab-sub {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+  }
+</style>

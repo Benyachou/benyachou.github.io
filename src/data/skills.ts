@@ -1,59 +1,73 @@
 /**
- * Compétences regroupées en deux familles, affichées sous forme de tags.
+ * Compétences regroupées en « VLANs », suivant les familles du CV 2026.
+ * Chaque groupe indique où la compétence a été pratiquée (source).
  */
 export interface SkillGroup {
+  /** Numéro de VLAN affiché sur le panneau (cohérence visuelle réseau). */
+  vlan: number;
   title: string;
-  /** Identifiant d'icône (voir src/components/Skills.astro). */
-  icon: 'code' | 'server';
+  /** Contexte de pratique, tel qu'énoncé sur le CV. */
+  source: string;
   items: string[];
 }
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: 'Développement & automatisation',
-    icon: 'code',
-    items: [
-      'Python (LLM, threading, pytest)',
-      'Django',
-      'Dart / Flutter',
-      'PHP / Symfony',
-      'JavaScript (ES2017+)',
-      'HTML / CSS',
-      'SQL / API REST',
-      'Docker',
-      'PWA / Service Worker',
-      'Capacitor',
-      'Supabase / PostgreSQL',
-      'GitHub Actions / CI/CD',
-    ],
-  },
-  {
+    vlan: 10,
     title: 'Systèmes & parc',
-    icon: 'server',
+    source: 'Pratiqué en entreprise',
     items: [
       'Windows Server',
       'Active Directory',
       'Linux (Debian / Ubuntu)',
-      'Virtualisation (Hyper-V, VMware, Proxmox)',
+      'Gestion de parc 200+ postes',
+      'Support N1 / N2',
+      'Câblage & brassage RJ45',
       'PowerShell',
       'Bash',
-      'Gestion de parc',
-      'Support N1/N2',
     ],
   },
   {
+    vlan: 20,
+    title: 'Développement',
+    source: 'Pratiqué en entreprise',
+    items: [
+      'PHP / Symfony',
+      'Python',
+      'JavaScript',
+      'React',
+      'Express.js',
+      'SQL',
+      'Django',
+      'Java',
+      'Dart / Flutter',
+      'Supabase / PostgreSQL',
+    ],
+  },
+  {
+    vlan: 30,
     title: 'Réseau & sécurité',
-    icon: 'server',
+    source: 'BTS Systèmes Numériques + laboratoire personnel',
     items: [
       'TCP/IP',
       'VLAN',
-      'Routage L2/L3',
+      'Routage & commutation L2 / L3',
       'VPN / NAT',
       'pfSense',
       'Stormshield',
       'Wireshark',
-      'Zabbix / GLPI',
-      'Audit sécurité',
     ],
+  },
+  {
+    vlan: 40,
+    title: 'Virtualisation & supervision',
+    source: 'BTS Systèmes Numériques + laboratoire personnel',
+    items: ['VMware', 'Proxmox', 'Hyper-V', 'GLPI', 'Zabbix'],
+  },
+  {
+    vlan: 99,
+    title: 'Outils',
+    source: 'Transverse',
+    items: ['Git', 'Docker', 'Intégration continue', 'PowerShell', 'Bash'],
   },
 ];

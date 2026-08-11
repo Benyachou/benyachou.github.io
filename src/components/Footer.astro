@@ -1,34 +1,20 @@
 ---
 import { site } from '../data/site';
+
 const year = new Date().getFullYear();
 ---
 
-<footer class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+<footer class="border-t border-line">
   <div
-    class="flex flex-col items-center justify-between gap-4 text-sm text-slate-500 sm:flex-row dark:text-slate-400"
+    class="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-4 py-8 font-mono text-xs text-muted sm:flex-row sm:items-center sm:px-6"
   >
-    <p>© {year} {site.name}. Tous droits réservés.</p>
-    <div class="flex items-center gap-5">
-      <a
-        href={site.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transition-colors hover:text-accent-600 dark:hover:text-accent-400"
-      >
-        GitHub
-      </a>
-      <a
-        href={`mailto:${site.email}`}
-        class="transition-colors hover:text-accent-600 dark:hover:text-accent-400"
-      >
-        E-mail
-      </a>
-      <a
-        href="#hero"
-        class="transition-colors hover:text-accent-600 dark:hover:text-accent-400"
-      >
-        Haut de page ↑
-      </a>
-    </div>
+    <p>
+      © {year} {site.name} — schéma v{year}. Construit avec Astro, hébergé sur
+      GitHub Pages.
+    </p>
+    <p class="flex items-center gap-2">
+      <span class="led" aria-hidden="true"></span>
+      tous les services sont opérationnels
+    </p>
   </div>
 </footer>

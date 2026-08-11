@@ -1,41 +1,27 @@
 ---
 /**
- * Conteneur de section réutilisable : ancre, titre et espacement cohérents.
+ * Conteneur de section : chaque section est un « segment » du schéma,
+ * raccordé au rail vertical (bus) qui court le long de la page.
  */
 interface Props {
   id: string;
   title: string;
   eyebrow?: string;
-  /** Fond alterné pour rythmer la page. */
-  alt?: boolean;
 }
 
-const { id, title, eyebrow, alt = false } = Astro.props;
+const { id, title, eyebrow } = Astro.props;
 ---
 
-<section
-  id={id}
-  class:list={[
-    'scroll-mt-16 border-b border-slate-200/60 dark:border-slate-800/60',
-    alt ? 'bg-slate-50 dark:bg-slate-900/40' : '',
-  ]}
->
-  <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
-    <header class="reveal mb-12">
-      {
-        eyebrow && (
-          <p class="mb-3 flex items-center gap-3 text-sm font-semibold uppercase tracking-widest text-accent-300">
-            <span class="accent-bar" aria-hidden="true" />
-            {eyebrow}
-          </p>
-        )
-      }
-      <h2
-        class="text-gradient text-3xl font-bold tracking-tight sm:text-4xl"
-      >
-        {title}
-      </h2>
-    </header>
-    <slot />
+<section id={id} class="scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="bus py-16 sm:py-24 lg:pl-10">
+      <header class="reveal mb-10 sm:mb-14">
+        {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+        <h2 class="display text-3xl text-text sm:text-4xl lg:text-5xl">
+          {title}
+        </h2>
+      </header>
+      <slot />
+    </div>
   </div>
 </section>

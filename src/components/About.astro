@@ -1,25 +1,75 @@
 ---
 import Section from './Section.astro';
+import { site } from '../data/site';
+import { withBase } from '../lib/path';
+
+const photo = withBase('photo.png');
+
+// Fiche façon inventaire de parc — les champs viennent du CV.
+const fiche = [
+  { key: 'HOSTNAME', value: 'yassine-benyachou' },
+  { key: 'RÔLE', value: 'technicien systèmes & réseaux · développeur' },
+  { key: 'SITE', value: 'Grabels (34790) — Montpellier' },
+  { key: 'UPTIME', value: '6 ans en informatique (2017 → 2026)' },
+  { key: 'MOBILITÉ', value: 'permis B · véhiculé' },
+  { key: 'LANGUES', value: 'français (natif) · arabe (natif) · anglais (technique)' },
+];
 ---
 
-<Section id="a-propos" eyebrow="À propos" title="Du code à la production">
-  <div class="reveal max-w-3xl space-y-4 text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-    <p>
-      Quatre ans d’expérience entre le <strong class="font-semibold text-slate-800 dark:text-slate-100">développement</strong>
-      (web, mobile, Python/IA) et l’<strong class="font-semibold text-slate-800 dark:text-slate-100">administration d’infrastructures</strong>.
-    </p>
-    <p>
-      Je conçois des solutions complètes : du code testé et déployé en CI/CD
-      jusqu’au support et à la maintenance en production — avec des
-      applications <strong class="font-semibold text-slate-800 dark:text-slate-100">livrées à de vrais clients</strong>
-      et utilisées quotidiennement. Cette double culture — développeur et
-      technicien systèmes & réseaux — me permet de comprendre une application
-      de bout en bout, de l’architecture logicielle jusqu’à l’environnement
-      qui la fait tourner.
-    </p>
-    <p>
-      Actuellement en <strong class="font-semibold text-slate-800 dark:text-slate-100">BTS Systèmes Numériques — Réseaux</strong>,
-      je consolide le versant infrastructure de ce profil hybride.
-    </p>
+<Section id="a-propos" eyebrow="cat /etc/profil" title="Du terrain à la prod">
+  <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+    <div class="reveal space-y-5 text-base leading-relaxed text-muted sm:text-lg">
+      <p>
+        Avant l’informatique, il y a eu <strong class="text-text">huit ans de terrain</strong> :
+        bâtiment, poids lourd, taille de pierre, saisons en base de canoë et
+        séjours ski. C’est là que j’ai appris à accueillir, expliquer sans
+        jargon, gérer les imprévus et tenir un engagement jusqu’au bout.
+      </p>
+      <p>
+        Depuis 2017, ce bagage sert un double profil : je
+        <strong class="text-text">gère des parcs et des réseaux</strong> (support N1/N2,
+        Active Directory, VLAN, pfSense) et je
+        <strong class="text-text">développe des applications livrées en production</strong> —
+        deux plateformes de réservation utilisées tous les jours par de vrais
+        clients, un bot de traduction qui tourne 24h/24.
+      </p>
+      <p>
+        Ma méthode, héritée du terrain : diagnostic et suivi des incidents
+        jusqu’à la clôture, documentation et procédures, tests avant mise en
+        production, accompagnement des utilisateurs.
+      </p>
+    </div>
+
+    <!-- Fiche d'inventaire -->
+    <div class="reveal">
+      <div class="panel p-6">
+        <div class="mb-5 flex items-center gap-4">
+          <img
+            src={photo}
+            alt={`Portrait de ${site.name}`}
+            width="72"
+            height="72"
+            loading="lazy"
+            class="h-18 w-18 rounded-full"
+          />
+          <div>
+            <p class="display text-lg text-text">{site.name}</p>
+            <p class="mt-1 inline-flex items-center gap-2 font-mono text-xs text-led">
+              <span class="led" aria-hidden="true"></span> disponible
+            </p>
+          </div>
+        </div>
+        <dl class="space-y-2.5 font-mono text-[0.8rem]">
+          {
+            fiche.map((f) => (
+              <div class="flex gap-3 border-b border-line/60 pb-2.5">
+                <dt class="w-24 flex-none text-cable">{f.key}</dt>
+                <dd class="text-muted">{f.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
   </div>
 </Section>
