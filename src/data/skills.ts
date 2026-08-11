@@ -1,5 +1,5 @@
 /**
- * Compétences regroupées en « VLANs », suivant les familles du CV 2026.
+ * Compétences regroupées en « VLANs », suivant les quatre familles du CV.
  * Chaque groupe indique où la compétence a été pratiquée (source).
  */
 export interface SkillGroup {
@@ -19,12 +19,10 @@ export const skillGroups: SkillGroup[] = [
     items: [
       'Windows Server',
       'Active Directory',
-      'Linux (Debian / Ubuntu)',
-      'Gestion de parc 200+ postes',
+      'Linux',
+      'Gestion de parc',
       'Support N1 / N2',
-      'Câblage & brassage RJ45',
-      'PowerShell',
-      'Bash',
+      'Câblage RJ45',
     ],
   },
   {
@@ -36,23 +34,22 @@ export const skillGroups: SkillGroup[] = [
       'Python',
       'JavaScript',
       'React',
-      'Express.js',
+      'Express JS',
       'SQL',
       'Django',
       'Java',
-      'Dart / Flutter',
-      'Supabase / PostgreSQL',
     ],
   },
   {
     vlan: 30,
     title: 'Réseau & sécurité',
-    source: 'BTS Systèmes Numériques + laboratoire personnel',
+    source: 'BTS Systèmes Numériques et laboratoire',
     items: [
       'TCP/IP',
       'VLAN',
       'Routage & commutation L2 / L3',
-      'VPN / NAT',
+      'VPN',
+      'NAT',
       'pfSense',
       'Stormshield',
       'Wireshark',
@@ -60,14 +57,18 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     vlan: 40,
-    title: 'Virtualisation & supervision',
-    source: 'BTS Systèmes Numériques + laboratoire personnel',
-    items: ['VMware', 'Proxmox', 'Hyper-V', 'GLPI', 'Zabbix'],
-  },
-  {
-    vlan: 99,
-    title: 'Outils',
-    source: 'Transverse',
-    items: ['Git', 'Docker', 'Intégration continue', 'PowerShell', 'Bash'],
+    title: 'Virtualisation & outils',
+    source: 'Laboratoire et pratique',
+    items: [
+      'VMware',
+      'Proxmox',
+      'Hyper-V',
+      'GLPI',
+      'Zabbix',
+      'Git',
+      'Docker',
+      'PowerShell',
+      'Bash',
+    ],
   },
 ];
